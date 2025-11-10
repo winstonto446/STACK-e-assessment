@@ -1,0 +1,160 @@
+ta1: [[A, false, "\\(x\\)-intercepts of the curve \\(y=g(x)\\)."],[B, true, "Intersection of \\(g(x)\\) and \\(h(x)\\)."],[C, false, "Intersection of \\(g'(x)\\) and \\(h'(x)\\)."]];
+ta3: [[A, false, "Shifting of the graph \\(y=g(x)\\) downards by \\(p\\)."],[B, true, "Shifting of the graph \\(y=g(x)\\) upwards by \\(p\\)."],[C, false, "Shifting of the graph \\(y=g(x)\\) to the left by \\(p\\)."],[D, false, "Shifting of the graph \\(y=g(x)\\) to the right by \\(p\\)."]];
+ta4: [[A, true, "increased"],[B, false, "decreased"]];
+ta5: 4.3;
+ta6: [[A, false, "increased"],[B, true, "decreased"]];
+ta7: 8.6;
+ta8: [[A, false, "increased"],[B, true, "decreased"]];
+ta9:5;
+ta10:  [[A, true, "A"],[B, false, "B"],[C, false, "C"],[D, false, "D"],[E, false, "E"],[F, false, "F"]];
+ta11: [[A, false, "A"],[B, false, "B"],[C, false, "C"],[D, false, "D"],[E, true, "E"],[F, false, "F"]];
+
+
+<p>Let \(g(x)=-x^3+qx\) and  \(h(x)=-p\), where \(p\) and \(q\) are some biological parameters. Consider the two-parameter model \(\frac{dx}{dt}=g(x)-h(x).\)</p>
+<p> Let \(a\), \(b\), \(c\) be the points of intersection of \(g(x)\) and \(h(x)\). </p>
+<p> The following interactive graph shows the functions of \(g(x)\) and \(h(x)\) and the intersection points. You can move the sliders to adjust the values of the parameters \(p\) and \(q\).
+
+[[jsxgraph]]
+var board = JXG.JSXGraph.initBoard(divid, {boundingbox: [-5, 10, 5, -10], axis: true, showCopyright: false});
+
+var p = board.create('slider', [[-4.8, -5], [-3.5,-5], [-5, 0, 5]],{name:'p', snapWidth: 0.5});
+
+var hx = board.create('line', [function() {return [-5, -p.Value()];},  
+    function() {return [5, -p.Value()];} ], {strokeColor: "blue", name: "h(x)",withLabel:true});
+var q = board.create('slider', [[-4.8, -3], [-3.5,-3], [-5, 5, 10]],{name:'q', snapWidth: 0.5});
+
+var gx = board.create('functiongraph', [function(x) {
+    return -Math.pow(x, 3) + q.Value() * x; 
+}, -5, 5], {strokeColor: "red", name: "g(x)",withLabel:true});
+
+var gx0 = board.create('functiongraph', [function(x) {
+    return -Math.pow(x, 3) + q.Value() * x; 
+}, -5, function() {return -Math.sqrt(q.Value()/3);}], {strokeColor: "green", visible: false});
+
+var gx1 = board.create('functiongraph', [function(x) {
+    return -Math.pow(x, 3) + q.Value() * x; 
+}, function() {return 0.001-Math.sqrt(q.Value()/3);}, function() {return Math.sqrt(q.Value()/3);}], {strokeColor: "green", visible: false});
+
+var gx2 = board.create('functiongraph', [function(x) {
+    return -Math.pow(x, 3) + q.Value() * x; 
+}, function() {return 0.001+Math.sqrt(q.Value()/3);}, 5], {strokeColor: "green", visible: false});
+
+var intersection1 = board.create('intersection', [gx0, hx, 0], {name: 'a',color: 'green'});
+var intersection2 = board.create('intersection', [gx1, hx, 0], {name: 'b',color: 'green'});
+var intersection3 = board.create('intersection', [gx2, hx, 0], {name: 'c',color: 'green'});
+
+var intersection4 = board.create('intersection', [gx, hx, 0], {name: function(){ 
+if (q.Value()<0 && p.Value()<0){return 'a';} else if (q.Value()<0 && p.Value()==0){return 'b';} else if (q.Value()<0 && p.Value()>0){return 'c';} else {return ' ';}}, color: 'green'});
+
+
+
+
+[[/jsxgraph]]
+
+
+<p><b>(a)</b> Where are the equilibria positions of the system? </p>
+[[input:ans1]] [[validation:ans1]][[feedback:prt1]]
+<br>
+<p><b>(b)</b> What does the parameter \(p\) also represent in the phase portrait \(\frac{dx}{dt}\) against \(x\)? </p>
+[[input:ans3]] [[validation:ans3]][[feedback:prt3]]
+<br>
+<p> <b>(c) (i)</b> Move slider \(q\) to fix \(q=5\). </p>
+<p>Assume initially \(p=0\), \(x=a\). By at least how much should \(p\) be increased or decreased such that \(x\) will eventually shift to \(c\)? <b>(*)</b></p>
+ \(p\) should be [[input:ans4]] [[validation:ans4]][[feedback:prt4]] by at least [[input:ans5]] [[validation:ans5]].[[feedback:prt5]] 
+<br>
+<p><b>(ii)</b> Hysteresis has occurred due to changes in \(p\) here. Even if we restore the value of \(p\) to the original, \(x\) will still remain at \(c\). By how much should \(p\) be increased or decreased from the state: when \(x\) has just shifted to \(c\) (i.e. <b>*</b>), such that \(x\) will return back to its original value, \(x=a\)?</p>
+ \(p\) should be [[input:ans6]] [[validation:ans6]][[feedback:prt6]] by at least [[input:ans7]] [[validation:ans7]].[[feedback:prt7]] 
+<br>
+<p><b>(d) (i)</b>Move slider \(p\) to fix \(p=0\). </p>
+<p>Assume initially \(q=5\), \(x=c\). By at least how much should \(q\) be increased or decreased such that \(x\) will eventaully shift to \(b\)? </p>
+ \(q\) should be [[input:ans8]] [[validation:ans8]][[feedback:prt8]] by at least [[input:ans9]] [[validation:ans9]].[[feedback:prt9]] 
+<br>
+<p><b>(ii)</b> Choose the graphs that best shows the bifurcation diagram for \(p\) (if we keep \(q=5\)) and \(q\) (if we keep \(p=0\)) respectively? Note that solid line and dotted line mean stable and unstable equilibria respectively in the following graphs.</p> 
+\(p :\)[[input:ans10]] [[validation:ans10]],[[feedback:prt10]] \(q :\)[[input:ans11]] [[validation:ans11]].[[feedback:prt11]]
+
+<div style="display: grid; grid-template-columns: 20px auto 1px 20px auto 1px;">
+<b>A:</b> [[jsxgraph width="250px" height="250px"]]
+  /* boundingbox:[left, top, right, bottom] */
+  var board = JXG.JSXGraph.initBoard(divid, {boundingbox: [-5.5, 5.5, 5.5, -5.5], axis: true, showCopyright: false});
+
+ var graph1 = board.create('functiongraph', [function(x){return Math.sqrt(x);}, 0, 5]);
+ var graph2 = board.create('functiongraph', [function(x){return -Math.sqrt(x);}, 0, 5]);
+var p1 = board.create('point', [0,0],{visible: false});
+var p2 = board.create('point', [5,0],{visible: false});
+var p3 = board.create('point', [-5,0],{visible: false});
+ var l1 = board.create('line', [p1,p2], {fixed: true, straightFirst:false, straightLast:false,dash:"2" });
+ var l1 = board.create('line', [p3,p1], {fixed: true, straightFirst:false, straightLast:false});
+
+ var xaxis = board.create('text',[3.5,0.4,"p or q"],{fontSize:15,color:"red"});
+ var yaxis = board.create('text',[0.4,4.5,"x_0"],{fontSize:15,color:"red"});
+[[/jsxgraph]]
+<b>B:</b> [[jsxgraph width="250px" height="250px"]]
+  /* boundingbox:[left, top, right, bottom] */
+  var board = JXG.JSXGraph.initBoard(divid, {boundingbox: [-5.5, 5.5, 5.5, -5.5], axis: true, showCopyright: false});
+
+ var graph1 = board.create('functiongraph', [function(x){return Math.sqrt(x);}, 0, 5],{dash:"2"});
+ var graph2 = board.create('functiongraph', [function(x){return -Math.sqrt(x);}, 0, 5],{dash:"2"});
+var p1 = board.create('point', [0,0],{visible: false});
+var p2 = board.create('point', [5,0],{visible: false});
+var p3 = board.create('point', [-5,0],{visible: false});
+ var l1 = board.create('line', [p1,p2], {fixed: true, straightFirst:false, straightLast:false });
+ var l1 = board.create('line', [p3,p1], {fixed: true, straightFirst:false, straightLast:false});
+
+ var xaxis = board.create('text',[3.5,0.4,"p or q"],{fontSize:15,color:"red"});
+ var yaxis = board.create('text',[0.4,4.5,"x_0"],{fontSize:15,color:"red"});
+[[/jsxgraph]]
+
+<b>C:</b> [[jsxgraph width="250px" height="250px"]]
+  /* boundingbox:[left, top, right, bottom] */
+  var board = JXG.JSXGraph.initBoard(divid, {boundingbox: [-5.5, 5.5, 5.5, -5.5], axis: true, showCopyright: false});
+
+ var graph1 = board.create('functiongraph', [function(x){return Math.sqrt(x);}, 0, 5],{dash:"2"});
+ var graph2 = board.create('functiongraph', [function(x){return -Math.sqrt(x);}, 0, 5]);
+var p1 = board.create('point', [0,0],{visible: false});
+var p2 = board.create('point', [5,0],{visible: false});
+var p3 = board.create('point', [-5,0],{visible: false});
+
+ var xaxis = board.create('text',[3.5,0.4,"p or q"],{fontSize:15,color:"red"});
+ var yaxis = board.create('text',[0.4,4.5,"x_0"],{fontSize:15,color:"red"});
+[[/jsxgraph]]
+
+<b>D:</b> [[jsxgraph width="250px" height="250px"]]
+  /* boundingbox:[left, top, right, bottom] */
+  var board = JXG.JSXGraph.initBoard(divid, {boundingbox: [-5.5, 5.5, 5.5, -5.5], axis: true, showCopyright: false});
+
+ var graph1 = board.create('functiongraph', [function(x){return Math.sqrt(x);}, 0, 5]);
+ var graph2 = board.create('functiongraph', [function(x){return -Math.sqrt(x);}, 0, 5],{dash:"2"});
+var p1 = board.create('point', [0,0],{visible: false});
+var p2 = board.create('point', [5,0],{visible: false});
+var p3 = board.create('point', [-5,0],{visible: false});
+
+ var xaxis = board.create('text',[3.5,0.4,"p or q"],{fontSize:15,color:"red"});
+ var yaxis = board.create('text',[0.4,4.5,"x_0"],{fontSize:15,color:"red"});
+[[/jsxgraph]]
+
+<b>E:</b> [[jsxgraph width="250px" height="250px"]]
+  /* boundingbox:[left, top, right, bottom] */
+  var board = JXG.JSXGraph.initBoard(divid, {boundingbox: [-5.5, 5.5, 5.5, -5.5], axis: true, showCopyright: false});
+
+var graph1 = board.create('functiongraph', [function(x) { return 2.582 * Math.cos(Math.acos(x / 4.3) / 3); }, -4.3, 4.3 ]);
+  var graph2 = board.create('functiongraph', [function(x) { return 2.582 * Math.cos((Math.acos(x / 4.3) / 3) + (2 * Math.PI / 3)); }, -4.3, 4.3 ]);
+  var graph3 = board.create('functiongraph', [function(x) { return 2.582 * Math.cos((Math.acos(x / 4.3) / 3) + (4 * Math.PI / 3)); }, -4.3, 4.3 ], {dash: "2"});
+
+
+ var xaxis = board.create('text',[3.5,0.4,"p or q"],{fontSize:15,color:"red"});
+ var yaxis = board.create('text',[0.4,4.5,"x_0"],{fontSize:15,color:"red"});
+[[/jsxgraph]]
+
+<b>F:</b> [[jsxgraph width="250px" height="250px"]]
+  /* boundingbox:[left, top, right, bottom] */
+  var board = JXG.JSXGraph.initBoard(divid, {boundingbox: [-5.5, 5.5, 5.5, -5.5], axis: true, showCopyright: false});
+
+var graph1 = board.create('functiongraph', [function(x) { return 2.582 * Math.cos(Math.acos(-x / 4.3) / 3); }, -4.3, 4.3 ],{dash: "2"});
+  var graph2 = board.create('functiongraph', [function(x) { return 2.582 * Math.cos((Math.acos(-x / 4.3) / 3) + (2 * Math.PI / 3)); }, -4.3, 4.3 ],{dash: "2"});
+  var graph3 = board.create('functiongraph', [function(x) { return 2.582 * Math.cos((Math.acos(-x / 4.3) / 3) + (4 * Math.PI / 3)); }, -4.3, 4.3 ]);
+
+
+ var xaxis = board.create('text',[3.5,0.4,"p or q"],{fontSize:15,color:"red"});
+ var yaxis = board.create('text',[0.4,4.5,"x_0"],{fontSize:15,color:"red"});
+[[/jsxgraph]]
+</div>

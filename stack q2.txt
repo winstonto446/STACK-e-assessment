@@ -1,0 +1,66 @@
+a: float((1+rand(9))/10);
+b: rand(4)+2;
+c: float((1+rand(9))/10);
+g: a;
+d: rand(3)+2;
+k: c/a;
+tat1: ["It is a Predator-prey model where X is prey and Y is predator.","Y gets full so Y cannot consume X indefinitely.","Both X and Y exhibit exponential growth or decay if we ignore the interaction terms."];
+
+taf1: ["It is a competitive Lotka-Voltera model.", "It is a Predator-prey model where X is predator and Y is prey.", "X gets full so X cannot consume Y indefinitely.", "Both X and Y are following logistic growth or decay if we ignore the interaction terms."];
+
+tat1: maplist(lambda([ex],[ex, true]), tat1);
+taf1: rand_selection(taf1, 2);
+taf1: maplist(lambda([ex],[ex, false]), taf1);
+ta1: append(tat1,taf1);
+ta1:random_permutation(ta1);
+ta1:append(ta1,[["None of the above",false]])
+
+ta2: c/a;
+ta3: 1/a;
+ta4: b/d;
+ta5: b/d;
+ta6: matrix([K/(1-K),1/(1-K)]);
+ta7: matrix ([1-((x+1)*y-x*y)/(x+1)^2, -x/(x+1)], [((x+1)*y-x*y)/(x+1)^2, -K+x/(x+1)])
+ta8: [[A, false, "stable"],  [B, true, "unstable"], [C, false, "degenerate"]]
+ta9: [[A, false, "stable"],  [B, true, "unstable"], [C, false, "degenerate"]]
+ta10: [[A, false, "stable"],  [B, true, "unstable"], [C, false, "degenerate"]]
+ta11: [[A, false, "stable"],  [B, true, "unstable"], [C, false, "degenerate"]]
+ta12: [[A, false, "stable"],  [B, false, "unstable"], [C, true, "degenerate"]]
+ta13: [[A, false, "stable"],  [B, true, "unstable"], [C, false, "degenerate"]]
+ta14: [[A, true, "stable"],  [B, false, "unstable"], [C, false, "degenerate"]]
+
+
+
+<p>Consider a modified biological system between species \(X\) and \(Y\), with population \(x\) and \(y\) respectively.  </p>
+<p>It is given that \[\frac{dx}{dt} = {@a@}x - \frac{{@g@}xy}{{@d@}x+{@b@}} \] \[
+\frac{dy}{dt} = -{@c@}y + \frac{{@g@}xy}{{@d@}x+{@b@}}.\]</p>
+<p><b>(a)</b> Which of the following is/are the appropriate biological interpretation for the system above?</p>
+<p>[[input:ans1]] [[validation:ans1]]</p> [[feedback:prt1]]
+<br>
+<p><b>(b)</b> To perform non-dimensionalisation,  we can let \(x = \hat{x}X, y = \hat{y}Y\) and \(t = \hat{t}T\), then the system of differential equations can be written as </p>\[\frac{d\hat{x}}{d\hat{t}} = \hat{x} - \frac{\hat{x}\hat{y}}{\hat{x}+1}\] \[\frac{d\hat{y}}{d\hat{t}} =-K\hat{y} + \frac{\hat{x}\hat{y}}{\hat{x}+1}.\]</p>
+<p>Find \(K\), \(T\), \(Y\) and \(X\).</p>
+<p> \(K = \) [[input:ans2]] [[validation:ans2]] [[feedback:prt2]]</p>
+<p> \(T = \) [[input:ans3]] [[validation:ans3]] [[feedback:prt3]]</p>
+<p> \(Y = \) [[input:ans4]] [[validation:ans4]] [[feedback:prt4]]</p>
+<p> \(X = \) [[input:ans5]] [[validation:ans5]] [[feedback:prt5]]</p>
+<br>
+<b>Leave the variable K as it is. Do not substitute its numerical value in the following parts. </b>
+<p><b>(c) (i)</b> Ignoring the hats in the equations, find the equilibrium of the system <b>apart from the origin</b>. </p>
+\([x,y]=\)  [[input:ans6]] [[validation:ans6]][[feedback:prt6]]
+
+<p><b>(ii)</b> Find the Jacobian matrix \(J\) for the system. Express in terms of the variables \(x\) and \(y\). </p>
+\(J = \)[[input:ans7]] [[validation:ans7]][[feedback:prt7]]
+<br>
+<br>
+<p><b>(d)</b>Stability Analysis.</p>
+<p> The stability of an equilibrium may be dependent on parameter values. </p>
+<p>Consider the equilibrium \((0,0)\). </p>
+<p>If \(K\lt 0\) , then it is [[input:ans8]]. [[validation:ans8]][[feedback:prt8]]</p>
+<p>If \(K=0\), then it is [[input:ans9]]. [[validation:ans9]][[feedback:prt9]]</p>
+<p>If \(K\gt 0\), then it is [[input:ans10]]. [[validation:ans10]][[feedback:prt10]]</p>
+<br>
+<p>Consider the other equilibrium we found in (c)(i). </p>
+<p>If \(K\lt 0\), then it is [[input:ans11]]. [[validation:ans11]][[feedback:prt11]]</p>
+<p>If \(K=0\), then it is [[input:ans12]]. [[validation:ans12]][[feedback:prt12]]</p>
+<p>If \(0\lt K \lt 1\), then it is [[input:ans13]]. [[validation:ans13]][[feedback:prt13]]</p>
+<p>If \(K\gt 1\), then it is [[input:ans14]]. [[validation:ans14]][[feedback:prt14]]</p>

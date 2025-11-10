@@ -1,0 +1,139 @@
+a: rand(3)+1;
+K: rand(30)+100;
+A: rand(30)+60;
+fx:-a*x+a/A*x^2+a*x^2/K-a*x^3/(A*K);
+ta1: a;
+ta2: K;
+ta3: K;
+tai:float((K+A-sqrt(K^2-A*K+A^2))/3);
+taii:float((K+A+sqrt(K^2-A*K+A^2))/3);
+taiii:float(-a*tai+a/A*tai^2+a*tai^2/K-a*tai^3/(A*K));
+taiv:float(-a*taii+a/A*taii^2+a*taii^2/K-a*taii^3/(A*K));
+ta4: A;
+ta5: [[A, true, "0"],[B, false, A],[C, false, K]];
+ta6: [[A, false, "Strong Allee effect"],[B, false, "Weak Allee effect"],[C, true, "No Allee effect"]];
+ta7: [[A, true, "Strong Allee effect"],[B, false, "Weak Allee effect"],[C, false, "No Allee effect"]];
+ta8: [[A, false, "Strong Allee effect"],[B, true, "Weak Allee effect"],[C, false, "No Allee effect"]];
+ta9: [[A, false, "Yes"],[B, true, "No"]];
+ta10: [[A, true, "Yes"],[B, false, "No"]];
+ta11: [[A, false, "Yes"],[B, true, "No"]];
+ta12: 1;
+
+<p>Consider the following Allee effect model for a goldfish population.
+\[f(x)=\frac{dx}{dt} = -ax\left(1-\frac{x}{K}\right)\left(1-\frac{x}{A}\right)\] 
+where \(a \gt 0\) and \(0\lt A\lt K\). It models the population \(x\) of the goldfish under poor environmental conditions.</p>
+<p> Let \(a = \) {@a@}, \(A = \) {@A@} and \(K = \) {@K@}.
+<br> 
+<p>Substitute the values of \(a\), \(A\) and \(K\).</p>
+<p><b>(a)</b>  What is the <b>carrying capacity</b> of the goldfish population? Ignore the units. </p>
+<p> Carrying capacity = [[input:ans2]]. [[validation:ans2]][[feedback:prt2]]</p>
+<br>
+<p><b>(b)</b> We may hence obtain the following phase plot. </p>
+[[jsxgraph input-ref-stateStore="stateRef" input-ref-stateStore2="stateRef2" input-ref-ans12='ans12Ref' input-ref-ans13='ans13Ref' input-ref-ans14='ans14Ref']]
+  /* Note that the input-ref-X attribute above will store the element identifier of the input X in
+     a variable named in the attribute, you can have multiple references to multiple inputs. */
+
+  /* Create a normal board. */
+  /* boundingbox:[left, top, right, bottom] */
+  var board = JXG.JSXGraph.initBoard(divid, {boundingbox: [-50, 50, 150, -50], axis: true, showCopyright: false});
+  var f = board.jc.snippet('{#fx#}', true, 'x', true);
+  board.create('functiongraph', [f,0,150],{name:'f(x)', withLabel:true});
+
+  /* State represented as a JS-object, first define default then try loading the stored values. */
+  
+var state = {'x':40, 'y':20};
+  var stateInput = document.getElementById(stateRef);
+  if (stateInput.value && stateInput.value != '') {
+    state = JSON.parse(stateInput.value);
+  }
+
+var state2 = {'x':80, 'y':30};
+  var stateInput2 = document.getElementById(stateRef2);
+  if (stateInput2.value && stateInput2.value != '') {
+    state2 = JSON.parse(stateInput2.value);
+  }
+
+  /* Then make the graph represent the state */
+  var p = board.create('point',[state['x'],state['y']], {Color : 'blue', name : ' ' });
+  var p2 = board.create('point',[state2['x'],state2['y']], {Color : 'red', name : '  ' });
+
+  /* And finally the most important thing, update the stored state when things change. */
+  p.on('drag', function() {
+    var newState = {'x':p.X(), 'y':p.Y()};
+    /* Encode the state as JSON for storage and store it */
+    stateInput.value = JSON.stringify(newState);
+    /* Since the STACK-JS system one needs to also remember to tell others
+       about the changed value. Do this by dispatching an event. */
+    stateInput.dispatchEvent(new Event('change'));
+  });
+
+  p2.on('drag', function() {
+    var newState2 = {'x':p2.X(), 'y':p2.Y()};
+    /* Encode the state as JSON for storage and store it */
+    stateInput2.value = JSON.stringify(newState2);
+    /* Since the STACK-JS system one needs to also remember to tell others
+       about the changed value. Do this by dispatching an event. */
+    stateInput2.dispatchEvent(new Event('change'));
+  });
+
+var Xs = board.create("point", [{#A#}/2, 0],{size:0 ,name: "X",color:"blue",visible: true,fixed:true});
+var Xe = board.create("point", [{#A#}/2+5, 0],{visible: false,fixed:true});
+ var Ys = board.create("point", [({#A#}+{#K#})/2, 0],{size:0,name: "Y",color:"blue",visible: true, fixed: true});
+var Ye = board.create("point", [({#A#}+{#K#})/2+5, 0],{visible: false,fixed:true});
+var Zs = board.create("point", [(150+{#K#})/2, 0],{size:0,name: "Z",color:"blue",visible: true,fixed:true});
+var Ze = board.create("point", [(150+{#K#})/2+5, 0],{visible: false,fixed:true});
+
+var X = board.create('arrow', [Xs, Xe],{name: "X", color:"black",size: 50});
+var Y = board.create('arrow', [Ys, Ye],{name: "Y", color:"black",size: 50});
+var Z = board.create('arrow', [Zs, Ze],{name: "Z", color:"black",size: 50});
+
+ var button1 = board.create('button', [-45, 40, 'Change arrow X direction', function() {
+     Xs.moveTo([Xe.X(), Xe.Y()], 100);
+     Xe.moveTo([Xs.X(), Xs.Y()], 100);
+ }]);
+var button2 = board.create('button', [-45, 30, 'Change arrow Y direction', function() {
+     Ys.moveTo([Ye.X(), Ye.Y()], 100);
+     Ye.moveTo([Ys.X(), Ys.Y()], 100);
+ }]);
+var button3 = board.create('button', [-45, 20, 'Change arrow Z direction', function() {
+     Zs.moveTo([Ze.X(), Ze.Y()], 100);
+     Ze.moveTo([Zs.X(), Zs.Y()], 100);
+ }]);
+
+stack_jxg.bind_point_dual(ans12Ref, Xs, Xe);
+stack_jxg.bind_point_dual(ans13Ref, Ys, Ye);
+stack_jxg.bind_point_dual(ans14Ref, Zs, Ze);
+board.update();
+
+
+[[/jsxgraph]]
+
+<p style="display:none">[[input:stateStore]] [[validation:stateStore]]</p>
+<p style="display:none">[[input:stateStore2]] [[validation:stateStore2]]</p>
+
+
+<p> <b>(i)</b> Adjust the directions of arrows \(X, Y \) and \(Z \) such that they point at the direction of change of population (along the \(x\)-axis) at their respective points. </p>
+<p>[[input:ans12]] [[validation:ans12]][[feedback:prt12]]</p>
+<p>[[input:ans13]] [[validation:ans13]][[feedback:prt13]]</p>
+<p>[[input:ans14]] [[validation:ans14]][[feedback:prt14]]</p>
+
+<p> <b>(ii)</b> Move the blue point to any stable <span id="dytext">equilibrium</span> of the graph.</p>[[feedback:prt3]]
+
+
+<p><b>(iii)</b> Move the red point to any unstable <span id="dytext2">equilibrium</span> of the graph.</p> [[feedback:prt4]]
+<br>
+<p> It is claimed that the initial conditions of a system may be crucial in the long term population of a species. </p>
+<p><b>(c)</b> What happens to the goldfish population \(x\) as \(t \to \infty\) if initially \(x \lt \) {@ A @}?</p>
+<p>\(x \to\) [[input:ans5]] [[validation:ans5]][[feedback:prt5]] </p>
+<p> This is also called the critical/threshold capacity (*) of the population. </p>
+<br>
+<p> <b>(d)</b> Allee effect can be classified as strong Allee effect if the population has a negative growth rate when the population size is small, and weak Allee effect if the population has reduced but positive growth rate. <b>(i)</b> Determine whether the following population models has a threshold capacity (*), <b>(ii)</b> and whether they exhibit strong, weak or no Allee effect.</p>
+<p><b>The logistic equation:</b> \[\frac{dx}{dt} = ax\left(1-\frac{x}{K}\right)\] </p>
+<p>Any threshold population? [[input:ans9]] [[validation:ans9]][[feedback:prt9]]</p>
+<p>Any Allee effect? [[input:ans6]] [[validation:ans6]][[feedback:prt6]]</p>
+<p><b>The goldfish population model: </b>\[\frac{dx}{dt} = -ax\left(1-\frac{x}{K}\right)\left(1-\frac{x}{A}\right)\]  </p>
+<p>Any threshold population? [[input:ans10]] [[validation:ans10]][[feedback:prt10]]</p>
+<p>Any Allee effect? [[input:ans7]] [[validation:ans7]][[feedback:prt7]]</p>
+<p><b>A modified population model:</b> \[\frac{dx}{dt} = \frac{ax^2}{K}\left(1-\frac{x}{K}\right)\] </p>
+<p>Any threshold population? [[input:ans11]] [[validation:ans11]][[feedback:prt11]]</p>
+<p>Any Allee effect? [[input:ans8]] [[validation:ans8]][[feedback:prt8]]</p>
