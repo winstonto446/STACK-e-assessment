@@ -1,3 +1,4 @@
+# Question variables (Maxima)
 ta1: [[A, false, "\\(x\\)-intercepts of the curve \\(y=g(x)\\)."],[B, true, "Intersection of \\(g(x)\\) and \\(h(x)\\)."],[C, false, "Intersection of \\(g'(x)\\) and \\(h'(x)\\)."]];
 ta3: [[A, false, "Shifting of the graph \\(y=g(x)\\) downards by \\(p\\)."],[B, true, "Shifting of the graph \\(y=g(x)\\) upwards by \\(p\\)."],[C, false, "Shifting of the graph \\(y=g(x)\\) to the left by \\(p\\)."],[D, false, "Shifting of the graph \\(y=g(x)\\) to the right by \\(p\\)."]];
 ta4: [[A, true, "increased"],[B, false, "decreased"]];
@@ -9,11 +10,12 @@ ta9:5;
 ta10:  [[A, true, "A"],[B, false, "B"],[C, false, "C"],[D, false, "D"],[E, false, "E"],[F, false, "F"]];
 ta11: [[A, false, "A"],[B, false, "B"],[C, false, "C"],[D, false, "D"],[E, true, "E"],[F, false, "F"]];
 
-
+# Question Text (HTML)
 <p>Let \(g(x)=-x^3+qx\) and  \(h(x)=-p\), where \(p\) and \(q\) are some biological parameters. Consider the two-parameter model \(\frac{dx}{dt}=g(x)-h(x).\)</p>
 <p> Let \(a\), \(b\), \(c\) be the points of intersection of \(g(x)\) and \(h(x)\). </p>
 <p> The following interactive graph shows the functions of \(g(x)\) and \(h(x)\) and the intersection points. You can move the sliders to adjust the values of the parameters \(p\) and \(q\).
 
+# JSXGraph (JavaScript) 
 [[jsxgraph]]
 var board = JXG.JSXGraph.initBoard(divid, {boundingbox: [-5, 10, 5, -10], axis: true, showCopyright: false});
 
@@ -157,4 +159,5 @@ var graph1 = board.create('functiongraph', [function(x) { return 2.582 * Math.co
  var xaxis = board.create('text',[3.5,0.4,"p or q"],{fontSize:15,color:"red"});
  var yaxis = board.create('text',[0.4,4.5,"x_0"],{fontSize:15,color:"red"});
 [[/jsxgraph]]
+
 </div>
