@@ -1,3 +1,4 @@
+# Question variables (Maximaa)
 a: rand(3)+1;
 K: rand(30)+100;
 A: rand(30)+60;
@@ -19,6 +20,7 @@ ta10: [[A, true, "Yes"],[B, false, "No"]];
 ta11: [[A, false, "Yes"],[B, true, "No"]];
 ta12: 1;
 
+# Question Text (HTML)
 <p>Consider the following Allee effect model for a goldfish population.
 \[f(x)=\frac{dx}{dt} = -ax\left(1-\frac{x}{K}\right)\left(1-\frac{x}{A}\right)\] 
 where \(a \gt 0\) and \(0\lt A\lt K\). It models the population \(x\) of the goldfish under poor environmental conditions.</p>
@@ -29,6 +31,7 @@ where \(a \gt 0\) and \(0\lt A\lt K\). It models the population \(x\) of the gol
 <p> Carrying capacity = [[input:ans2]]. [[validation:ans2]][[feedback:prt2]]</p>
 <br>
 <p><b>(b)</b> We may hence obtain the following phase plot. </p>
+# JSXGraph (Javascript)
 [[jsxgraph input-ref-stateStore="stateRef" input-ref-stateStore2="stateRef2" input-ref-ans12='ans12Ref' input-ref-ans13='ans13Ref' input-ref-ans14='ans14Ref']]
   /* Note that the input-ref-X attribute above will store the element identifier of the input X in
      a variable named in the attribute, you can have multiple references to multiple inputs. */
@@ -136,4 +139,5 @@ board.update();
 <p>Any Allee effect? [[input:ans7]] [[validation:ans7]][[feedback:prt7]]</p>
 <p><b>A modified population model:</b> \[\frac{dx}{dt} = \frac{ax^2}{K}\left(1-\frac{x}{K}\right)\] </p>
 <p>Any threshold population? [[input:ans11]] [[validation:ans11]][[feedback:prt11]]</p>
+
 <p>Any Allee effect? [[input:ans8]] [[validation:ans8]][[feedback:prt8]]</p>
