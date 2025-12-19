@@ -1,3 +1,4 @@
+# Question variables (Maxima)
 a: float((1+rand(9))/10);
 b: rand(4)+2;
 c: float((1+rand(9))/10);
@@ -7,7 +8,7 @@ k: c/a;
 tat1: ["It is a Predator-prey model where X is prey and Y is predator.","Y gets full so Y cannot consume X indefinitely.","Both X and Y exhibit exponential growth or decay if we ignore the interaction terms."];
 
 taf1: ["It is a competitive Lotka-Voltera model.", "It is a Predator-prey model where X is predator and Y is prey.", "X gets full so X cannot consume Y indefinitely.", "Both X and Y are following logistic growth or decay if we ignore the interaction terms."];
-
+# Randomising multiple-choice questions (shuffling, distractors)
 tat1: maplist(lambda([ex],[ex, true]), tat1);
 taf1: rand_selection(taf1, 2);
 taf1: maplist(lambda([ex],[ex, false]), taf1);
@@ -30,7 +31,7 @@ ta13: [[A, false, "stable"],  [B, true, "unstable"], [C, false, "degenerate"]]
 ta14: [[A, true, "stable"],  [B, false, "unstable"], [C, false, "degenerate"]]
 
 
-
+# Question Text (HTML)
 <p>Consider a modified biological system between species \(X\) and \(Y\), with population \(x\) and \(y\) respectively.  </p>
 <p>It is given that \[\frac{dx}{dt} = {@a@}x - \frac{{@g@}xy}{{@d@}x+{@b@}} \] \[
 \frac{dy}{dt} = -{@c@}y + \frac{{@g@}xy}{{@d@}x+{@b@}}.\]</p>
@@ -63,4 +64,5 @@ ta14: [[A, true, "stable"],  [B, false, "unstable"], [C, false, "degenerate"]]
 <p>If \(K\lt 0\), then it is [[input:ans11]]. [[validation:ans11]][[feedback:prt11]]</p>
 <p>If \(K=0\), then it is [[input:ans12]]. [[validation:ans12]][[feedback:prt12]]</p>
 <p>If \(0\lt K \lt 1\), then it is [[input:ans13]]. [[validation:ans13]][[feedback:prt13]]</p>
+
 <p>If \(K\gt 1\), then it is [[input:ans14]]. [[validation:ans14]][[feedback:prt14]]</p>
